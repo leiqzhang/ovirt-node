@@ -259,7 +259,7 @@ fi
 aclocal && autoheader && automake --add-missing && autoconf
 
 
-%configure --with-image-minimizer @ARCHIPEL_FLAGS@
+%configure --with-image-minimizer @ARCHIPEL_FLAGS@ @LITEVIRT_FLAGS@
 make
 
 # Build SELinux policy module

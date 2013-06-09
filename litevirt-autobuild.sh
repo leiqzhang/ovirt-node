@@ -39,7 +39,7 @@ OVIRT_LOCAL_REPO=file://${OVIRT_LOCAL_DIR}
 export OVIRT_LOCAL_REPO OVIRT_CACHE_DIR
 
 rm -f ${OVIRT_LOCAL_DIR}/ovirt-node-*
-./autogen.sh --prefix=$AUTOBUILD_INSTALL_ROOT --with-image-minimizer
+./autogen.sh --prefix=$AUTOBUILD_INSTALL_ROOT --with-image-minimizer --withlitevirt
 make
 make install
 
@@ -65,7 +65,7 @@ mkdir -p ${OVIRT_LOCAL_DIR}
 createrepo -d ${OVIRT_LOCAL_DIR}
 
 cd recipe
-make ovirt-node-image.iso 
+make litevirt-node-image.iso 
 
 if ! ls *.iso 2>/dev/null >/dev/null; then
     echo "ISO not created"
@@ -79,7 +79,7 @@ ln -nf *iso .. ||:
 #Don't error out if this doesn't work.
 set +e
 TMPDIR=$(mktemp -d)
-sudo mount -o loop ovirt-node-image.iso $TMPDIR
+sudo mount -o loop litevirt-node-image.iso $TMPDIR
 cp $TMPDIR/isolinux/manifest-srpm.txt ..
 cp $TMPDIR/isolinux/manifest-rpm.txt ..
 cp $TMPDIR/isolinux/manifest-file.txt.bz2 ..
@@ -87,33 +87,33 @@ sudo umount $TMPDIR
 rmdir $TMPDIR
 
 cd ..
-echo "======================================================" > ovirt-node-image.mini-manifest
-echo "Package info in ovirt-node-image.iso" >> ovirt-node-image.mini-manifest
-echo "======================================================" >> ovirt-node-image.mini-manifest
+echo "======================================================" > litevirt-node-image.mini-manifest
+echo "Package info in ovirt-node-image.iso" >> litevirt-node-image.mini-manifest
+echo "======================================================" >> litevirt-node-image.mini-manifest
 egrep '^kernel|kvm|^ovirt-node|libvirt' manifest-srpm.txt | \
-sed 's/\.src\.rpm//' >> ovirt-node-image.mini-manifest
+sed 's/\.src\.rpm//' >> litevirt-node-image.mini-manifest
 
 # Add additional information to mini-manifest
 # Check size of iso and report in mini-manifest
-echo "======================================================" >> ovirt-node-image.mini-manifest
-size=$(readlink ovirt-node-image.iso | xargs ls -l | awk '{print $5}')
-human_size=$(readlink ovirt-node-image.iso | xargs ls -lh | awk '{print $5}')
-echo "    Iso Size:  $size  ($human_size)" >> ovirt-node-image.mini-manifest
+echo "======================================================" >> litevirt-node-image.mini-manifest
+size=$(readlink litevirt-node-image.iso | xargs ls -l | awk '{print $5}')
+human_size=$(readlink litevirt-node-image.iso | xargs ls -lh | awk '{print $5}')
+echo "    Iso Size:  $size  ($human_size)" >> litevirt-node-image.mini-manifest
 
 html_location=/var/www/html/builder/$(basename $(dirname ${AUTOBUILD_SOURCE_ROOT}))
 old_size=""
 old_human_size=""
-if [ -e ${html_location}/artifacts/${AUTOBUILD_MODULE}/ovirt-node-image.iso ]; then
-    old_size=$(ls -l ${html_location}/artifacts/${AUTOBUILD_MODULE}/ovirt-node-image.iso | awk '{print $5}')
-    old_human_size=$(ls -lh ${html_location}/artifacts/${AUTOBUILD_MODULE}/ovirt-node-image.iso | awk '{print $5}')
+if [ -e ${html_location}/artifacts/${AUTOBUILD_MODULE}/litevirt-node-image.iso ]; then
+    old_size=$(ls -l ${html_location}/artifacts/${AUTOBUILD_MODULE}/litevirt-node-image.iso | awk '{print $5}')
+    old_human_size=$(ls -lh ${html_location}/artifacts/${AUTOBUILD_MODULE}/litevirt-node-image.iso | awk '{print $5}')
     let size_diff=(size-old_size)/1024
     echo "Old Iso Size:  $old_size  ($old_human_size) delta[kB] $size_diff" >> ovirt-node-image.mini-manifest
 else
     echo "No old iso found for compairson">> ovirt-node-image.mini-manifest
 fi
 # md5 and sha256sums
-echo "MD5SUM:  $(md5sum ovirt-node-image.iso |awk '{print $1}')" >> ovirt-node-image.mini-manifest
-echo "SHA256SUM:  $(sha256sum ovirt-node-image.iso |awk '{print $1}')" >> ovirt-node-image.mini-manifest
+echo "MD5SUM:  $(md5sum litevirt-node-image.iso |awk '{print $1}')" >> ovirt-node-image.mini-manifest
+echo "SHA256SUM:  $(sha256sum litevirt-node-image.iso |awk '{print $1}')" >> ovirt-node-image.mini-manifest
 
-echo "======================================================" >> ovirt-node-image.mini-manifest
-echo "livecd-tools version:  $(rpm -qa livecd-tools)" >> ovirt-node-image.mini-manifest
+echo "======================================================" >> litevirt-node-image.mini-manifest
+echo "livecd-tools version:  $(rpm -qa livecd-tools)" >> litevirt-node-image.mini-manifest
