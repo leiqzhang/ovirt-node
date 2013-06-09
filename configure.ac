@@ -50,10 +50,21 @@ AC_ARG_WITH([archipel], [AC_HELP_STRING([--with-archipel],
 AC_SUBST([ARCHIPEL_FLAGS])
 
 
+AC_ARG_WITH([litevirt], [AC_HELP_STRING([--with-litevirt],
+            [build litevirt node])],
+            [LITEVIRT_FLAGS="--with-litevirt"],
+            [LITEVIRT_FLAGS=""])
+AC_SUBST([LITEVIRT_FLAGS])
+
 if test $ARCHIPEL_FLAGS; then
     PACKAGE_NAME=archipel-node-image
     PRODUCT_NAME=Archipel\ Node\ Hypervisor\ $DISTRO
     MAIN_KS=recipe/archipel-node-image.ks
+
+elif test $LITEVIRT_FLAGS; then
+    PACKAGE_NAME=litevirt-node-image
+    PRODUCT_NAME=Litevirt\ Node\ Hypervisor
+    MAIN_KS=recipe/litevirt-node-image.ks
 
 else
     PACKAGE_NAME=ovirt-node-image
