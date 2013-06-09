@@ -29,9 +29,6 @@ ARCH              = $(shell rpm --eval '%{_arch}')
 NODE_CREATOR      = $(shell test -e node-creator && echo "./node-creator" || echo "/usr/sbin/node-creator")
 
 FEDORA_MIRROR     = http://mirrors.fedoraproject.org/mirrorlist
-OVIRT_URL	      = http://ovirt.org/releases/stable/rpm/Fedora
-OVIRT_NIGHTLY_URL = http://ovirt.org/releases/nightly/rpm/Fedora
-OVIRT_BETA_URL    = http://ovirt.org/releases/beta/rpm/Fedora
 CUR_RAWHIDE       = 20
 CUR_DEVEL         = 19
 
@@ -88,9 +85,6 @@ repos.ks:
         echo "$${UPDATES_REPO_LINE}" >> repos.ks ;\
         echo "$${EPEL_REPO_LINE}" >> repos.ks ;\
       elif [ -n "$(FEDORA)" ]; then \
-            OVIRT_STABLE_REPO_LINE="repo --name=ovirt-stable-repo --baseurl=$(OVIRT_URL)/$(FEDORA)\n" ;\
-            OVIRT_NIGHTLY_REPO_LINE="repo --name=ovirt-nightly-repo --baseurl=$(OVIRT_NIGHTLY_URL)/$(FEDORA)\n" ;\
-            OVIRT_BETA_REPO_LINE="repo --name=ovirt-beta-repo --baseurl=$(OVIRT_BETA_URL)/$(FEDORA)\n" ;\
             if [ 0$(FEDORA) == 0$(CUR_RAWHIDE) ]; then \
                 FEDORA_REPO=rawhide ;\
                 FEDORA_REPO_LOC="$(if $(FEDORA_URL),--baseurl=$(FEDORA_URL)/development/rawhide/$(ARCH)/os,--mirrorlist=$(FEDORA_MIRROR)?repo=rawhide&arch=$(ARCH))" ;\
@@ -105,19 +99,9 @@ repos.ks:
             fi ;\
             echo "repo --name=$${FEDORA_REPO} $${FEDORA_REPO_LOC}" > repos.ks ;\
             printf "$${UPDATE_REPO_LINE}" >> repos.ks ;\
-            printf "$${OVIRT_STABLE_REPO_LINE}" >> repos.ks ;\
-            if [ "$${BUILD_TYPE}" == "NIGHTLY" ]; then \
-              printf "$${OVIRT_NIGHTLY_REPO_LINE}" >> repos.ks ;\
-              printf "$${OVIRT_BETA_REPO_LINE}" >> repos.ks ;\
-            elif [ "$${BUILD_TYPE}" == "BETA" ]; then \
-              printf "$${OVIRT_BETA_REPO_LINE}" >> repos.ks ;\
-            fi ;\
       else \
-            echo "# OVIRT_REPO_URL=$(OVIRT_REPO_URL)" > $@ ;\
-            for repo in $(OVIRT_REPO_URL); do \
-               echo "repo --name=repo$${i} --baseurl=$${repo}" >> $@ ;\
-               i=$${i}_ ;\
-            done ;\
+            echo "Not supported" ;\
+			exit; \
       fi ;\
 	)
 
