@@ -2,7 +2,7 @@ lang en_US.utf8
 keyboard us
 timezone --utc UTC
 auth --useshadow --enablemd5
-selinux --enforcing
+selinux --disabled
 firewall --disabled
 # TODO: the sizing of the image needs to be more dynamic
 part / --size 1536 --fstype ext2
