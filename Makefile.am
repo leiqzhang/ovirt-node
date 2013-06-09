@@ -36,8 +36,6 @@ SUBDIRS =   \
   tools
 
 EXTRA_DIST = \
-  libvirtd.service \
-  libvirtd.upstart \
   ovirt-node.spec \
   ovirt-node.spec.in \
   semodule
