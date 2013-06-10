@@ -281,6 +281,15 @@ make install DESTDIR=%{buildroot}
 %{__install} -d -m0755 %{buildroot}%{_libexecdir}/ovirt-node/hooks/post-upgrade
 %{__install} -d -m0755 %{buildroot}%{_libexecdir}/ovirt-node/hooks/rollback
 
+%if %{is_f16}
+# install libvirtd systemd service
+%{__install} -p -m0644 libvirtd.service %{buildroot}%{_unitdir}
+%endif
+%if ! %{is_systemd}
+# install libvirtd upstart job
+%{__install} -d -m0755 %{buildroot}%{_sysconfdir}/init
+%{__install} -p -m0644 libvirtd.upstart %{buildroot}%{_sysconfdir}/init/libvirtd.conf
+%endif
 
 # dracut patches for rhel6
 %if ! %{is_systemd}
@@ -474,6 +483,12 @@ fi
 %exclude %{_sysconfdir}/ovirt-config-boot.d/snmp_autoinstall.py*
 %config(noreplace) %{_sysconfdir}/sysconfig/node-config
 
+%if %{is_f16}
+%{_unitdir}/libvirtd.service
+%endif
+%if ! %{is_systemd}
+%{_sysconfdir}/init/libvirtd.conf
+%endif
 %{_sysconfdir}/ovirt-node/logging.conf
 %{_sysconfdir}/sysconfig/modules/vlan.modules
 %{_sysconfdir}/modprobe.d/ovirt-qla4xxx.conf
