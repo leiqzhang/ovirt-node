@@ -14,4 +14,5 @@ libvirt
 
 #pkgs not required
 -vhostmd
+-virt-manager-tui
 

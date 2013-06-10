@@ -51,22 +51,9 @@ firewall-offline-cmd -s ssh
 firewall-offline-cmd -s ovirt
 firewall-offline-cmd -s dhcpv6-client
 
-python -m compileall /usr/share/virt-manager
-
 echo "-w /etc/shadow -p wa" >> /etc/audit/audit.rules
 
 # Workaround for packages needing /etc/ovirt-node-image-release
 ln -s /etc/system-release /etc/ovirt-node-image-release
 
-#Add some upstream specific rwtab entries
-cat >> /etc/rwtab.d/ovirt << \EOF_rwtab_ovirt2
-dirs    /root/.virt-manager
-dirs    /admin/.virt-manager
-EOF_rwtab_ovirt2
-
-# create .virt-manager directories for readonly root
-mkdir -p /root/.virt-manager /home/admin/.virt-manager
-
-#symlink virt-manager-tui pointer file to .pyc version
-sed -i "s/tui.py/tui.pyc/g" /usr/bin/virt-manager-tui
 
