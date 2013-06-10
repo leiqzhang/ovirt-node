@@ -12,3 +12,6 @@ libvirt-python
 libvirt-daemon
 libvirt
 
+#pkgs not required
+-vhostmd
+
