@@ -15,6 +15,11 @@ libvirt
 #ovs stuff
 openvswitch
 
+#litevirt-api stuff
+python-gevent
+python-webpy
+python-mimeparse
+
 #pkgs not required
 -vhostmd
 -virt-manager-tui
