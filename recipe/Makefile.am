@@ -28,6 +28,8 @@ CENTOS            = @CENTOS@
 ARCH              = $(shell rpm --eval '%{_arch}')
 NODE_CREATOR      = $(shell test -e node-creator && echo "./node-creator" || echo "/usr/sbin/node-creator")
 
+FEDORA_URL		  = http://mirrors.163.com/fedora
+LITEVIRT_URL      = file:///root/litevirt-repo
 FEDORA_MIRROR     = http://mirrors.fedoraproject.org/mirrorlist
 CUR_RAWHIDE       = 20
 CUR_DEVEL         = 19
@@ -99,6 +101,8 @@ repos.ks:
             fi ;\
             echo "repo --name=$${FEDORA_REPO} $${FEDORA_REPO_LOC}" > repos.ks ;\
             printf "$${UPDATE_REPO_LINE}" >> repos.ks ;\
+            LITEVIRT_REPO_LINE="repo --name=litevirt-repo $(if $(LITEVIRT_URL),--baseurl=$(LITEVIRT_URL)/RPMS)\n" ;\
+            printf "$${LITEVIRT_REPO_LINE}" >> repos.ks ;\
       else \
             echo "Not supported" ;\
 			exit; \
