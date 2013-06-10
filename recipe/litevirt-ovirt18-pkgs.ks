@@ -12,6 +12,9 @@ libvirt-python
 libvirt-daemon
 libvirt
 
+#ovs stuff
+openvswitch
+
 #pkgs not required
 -vhostmd
 -virt-manager-tui
