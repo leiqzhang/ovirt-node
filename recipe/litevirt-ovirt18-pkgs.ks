@@ -19,6 +19,10 @@ openvswitch
 python-gevent
 python-webpy
 python-mimeparse
+python-flup
+
+#lighttpd
+lighttpd
 
 #pkgs not required
 -vhostmd
