@@ -1,0 +1,27 @@
+#!/bin/sh
+umask 077
+
+answers() {
+	echo --
+	echo SomeState
+	echo SomeCity
+	echo SomeOrganization
+	echo SomeOrganizationalUnit
+	echo localhost.localdomain
+	echo root@localhost.localdomain
+}
+
+if [ $# -eq 0 ] ; then
+	echo "Usage: `basename $0` target [...]"
+	exit 0
+fi
+
+for target in $@ ; do
+	KEY=${target}.key
+    CRT=${target}.crt
+    PEM=${target}.pem
+	answers | /usr/bin/openssl req -newkey rsa:4096 -keyout $KEY -nodes -x509 -days 365 -out $CRT 2> /dev/null
+	cat $KEY >  $PEM
+	echo ""  >> $PEM
+	cat $CRT >> $PEM
+done
