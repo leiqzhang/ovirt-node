@@ -24,6 +24,9 @@ python-flup
 #lighttpd
 lighttpd
 
+#misc 
+ovirt-node-certificate
+
 #pkgs not required
 -vhostmd
 -virt-manager-tui

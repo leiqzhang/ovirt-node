@@ -77,6 +77,12 @@ BuildArch:      noarch
 %description
 Provides a series of daemons and support utilities for hypervisor distribution.
 
+%package certificate
+Summary:        SSL certificate for hypervisor distribution.
+Group:          Applications/System
+
+%description certificate
+Provides SSL certificate for hypervisor distribution secruity connections.
 
 %package recipe
 Summary:        Recipes for building and running %{product_family} images
@@ -285,6 +291,13 @@ make install DESTDIR=%{buildroot}
 # install libvirtd systemd service
 %{__install} -p -m0644 libvirtd.service %{buildroot}%{_unitdir}
 %endif
+
+%define _ssldir /etc/ssl/private
+mkdir -p %{buildroot}%{_ssldir}
+%{__install} -p -m0600 litevirt.key %{buildroot}%{_ssldir}
+%{__install} -p -m0600 litevirt.crt %{buildroot}%{_ssldir}
+%{__install} -p -m0600 litevirt.pem %{buildroot}%{_ssldir}
+
 %if ! %{is_systemd}
 # install libvirtd upstart job
 %{__install} -d -m0755 %{buildroot}%{_sysconfdir}/init
@@ -419,6 +432,11 @@ fi
 #
 # FILES
 #
+%files certificate
+%config(noreplace) %attr(0600, root, root) /etc/ssl/private/litevirt.crt
+%config(noreplace) %attr(0600, root, root) /etc/ssl/private/litevirt.key
+%config(noreplace) %attr(0600, root, root) /etc/ssl/private/litevirt.pem 
+
 %files recipe
 %defattr(0644,root,root,0755)
 %doc README COPYING

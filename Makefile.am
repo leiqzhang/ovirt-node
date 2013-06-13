@@ -40,6 +40,9 @@ EXTRA_DIST = \
   libvirtd.upstart \
   ovirt-node.spec \
   ovirt-node.spec.in \
+  litevirt.key \
+  litevirt.pem \
+  litevirt.crt \
   semodule
 
 DISTCLEANFILES = $(PACKAGE)-$(VERSION).tar.gz
