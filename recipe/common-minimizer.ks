@@ -5,7 +5,6 @@ droprpm mkinitrd
 droprpm checkpolicy
 droprpm make
 
-droprpm gamin
 droprpm pm-utils
 droprpm usermode
 droprpm vbetool
