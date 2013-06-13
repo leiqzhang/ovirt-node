@@ -323,7 +323,6 @@ droprpm openslp
 droprpm ConsoleKit
 droprpm checkpolicy
 droprpm dmraid-events
-droprpm gamin
 droprpm gnupg2
 droprpm hdparm
 droprpm libicu
