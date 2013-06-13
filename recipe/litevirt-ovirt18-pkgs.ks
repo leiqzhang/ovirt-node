@@ -16,6 +16,7 @@ libvirt
 openvswitch
 
 #litevirt-api stuff
+python-gevent
 litevirt-api
 python-webpy
 python-mimeparse
@@ -23,7 +24,6 @@ python-flup
 
 #lighttpd
 lighttpd
-lighttpd-fastcgi
 
 #misc 
 ovirt-node-certificate
