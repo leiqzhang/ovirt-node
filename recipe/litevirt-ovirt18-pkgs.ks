@@ -16,6 +16,7 @@ libvirt
 openvswitch
 
 #litevirt-api stuff
+litevirt-api
 python-gevent
 python-webpy
 python-mimeparse
