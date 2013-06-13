@@ -9,5 +9,5 @@ sed -i '/label serial-console/,+3d' $LIVE_ROOT/isolinux/isolinux.cfg
 sed -i '/label reinstall (basic video)/,+3d' $LIVE_ROOT/isolinux/isolinux.cfg
 sed -i '/label reinstall-serial/,+3d' $LIVE_ROOT/isolinux/isolinux.cfg
 sed -i '/label basic0/,+6d' $LIVE_ROOT/isolinux/isolinux.cfg
-sed -i -e "s/label Reinstall/label Reinstall ${PRODUCT_SHORT}-$VERSION/" $LIVE_ROOT/isolinux/isolinux.cfg
-sed -i -e "s/label Uninstall/label Uninstall ${PRODUCT_SHORT}-$VERSION/" $LIVE_ROOT/isolinux/isolinux.cfg
+sed -i -e "s/label Reinstall/label Reinstall ${PRODUCT_SHORT} $VERSION/" $LIVE_ROOT/isolinux/isolinux.cfg
+sed -i -e "s/label Uninstall/label Uninstall ${PRODUCT_SHORT} $VERSION/" $LIVE_ROOT/isolinux/isolinux.cfg
