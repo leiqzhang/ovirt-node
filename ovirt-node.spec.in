@@ -297,8 +297,9 @@ mkdir -p %{buildroot}%{_ssldir}
 %{__install} -p -m0600 litevirt.key %{buildroot}%{_ssldir}
 %{__install} -p -m0600 litevirt.crt %{buildroot}%{_ssldir}
 %{__install} -p -m0600 litevirt.pem %{buildroot}%{_ssldir}
+
 # This is required by litevirt-api
-mkdir -p /var/run/lighttpd
+mkdir -p %{buildroot}/var/run/lighttpd
 
 %if ! %{is_systemd}
 # install libvirtd upstart job
@@ -497,7 +498,6 @@ fi
 
 %config(noreplace) %{_sysconfdir}/logrotate.d/ovirt-node
 %config(noreplace) %{_sysconfdir}/cron.d/ovirt-logrotate
-%attr(0755,lighttpd,lighttpd) /var/run/lighttpd
 
 %{mgmt_scripts_dir}
 %{_sysconfdir}/ovirt-config-boot.d
@@ -515,6 +515,7 @@ fi
 %{_sysconfdir}/modprobe.d/ovirt-qla4xxx.conf
 %{_libexecdir}/ovirt-node/hooks
 
+%dir %attr(0755,lighttpd,lighttpd) /var/run/lighttpd
 
 %doc COPYING
 # should be ifarch i386
