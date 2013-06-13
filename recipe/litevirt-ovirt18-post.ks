@@ -15,7 +15,7 @@ include "conf.d/proxy.conf
 #%end litevirt
 EOF 
 
-cat >> /etc/lighttpd/conf.d/fastcgi.conf <<EOF
+cat >> /etc/lighttpd/conf.d/proxy.conf <<EOF
 #%litevirt section
 server.modules += ( "mod_proxy" )
 
