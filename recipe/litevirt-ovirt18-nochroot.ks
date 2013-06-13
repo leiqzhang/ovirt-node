@@ -8,4 +8,4 @@ sed -i '/label install (basic video)/,+3d' $LIVE_ROOT/isolinux/isolinux.cfg
 sed -i '/label serial-console/,+3d' $LIVE_ROOT/isolinux/isolinux.cfg
 sed -i '/label reinstall (basic video)/,+3d' $LIVE_ROOT/isolinux/isolinux.cfg
 sed -i '/label reinstall-serial/,+3d' $LIVE_ROOT/isolinux/isolinux.cfg
-sed -i '/label basic0/,+3d' $LIVE_ROOT/isolinux/isolinux.cfg
+sed -i '/label basic0/,+6d' $LIVE_ROOT/isolinux/isolinux.cfg
