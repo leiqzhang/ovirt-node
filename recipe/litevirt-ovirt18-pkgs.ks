@@ -17,13 +17,13 @@ openvswitch
 
 #litevirt-api stuff
 litevirt-api
-python-gevent
 python-webpy
 python-mimeparse
 python-flup
 
 #lighttpd
 lighttpd
+lighttpd-fastcgi
 
 #misc 
 ovirt-node-certificate
